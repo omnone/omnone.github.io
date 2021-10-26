@@ -1,0 +1,419 @@
+        body {
+            /* font-family: Oswald, sans-serif; */
+            font-family: 'Open Sans Condensed', sans-serif;
+            padding-top: 2%;
+            font-size: 20px;
+            background: rgb(255, 255, 255);
+            position: relative;
+        }
+
+        li {
+            margin: 10px auto;
+        }
+
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .skill-list {
+            list-style: none;
+            margin: 0;
+            padding: 1em;
+        }
+
+        .card p {
+            padding: 3%;
+        }
+
+        .navbar-brand {}
+
+        #sep {
+            border-left: 1px solid;
+        }
+
+        .center-bitch {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        hr {
+            background-color: white;
+          
+        }
+
+        .fa {
+            padding: 10px;
+        }
+
+        #myBtn {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Fixed/sticky position */
+            bottom: 20px;
+            /* Place the button at the bottom of the page */
+            right: 30px;
+            /* Place the button 30px from the right */
+            z-index: 99;
+            /* Make sure it does not overlap */
+            border: none;
+            /* Remove borders */
+            outline: none;
+            /* Remove outline */
+            background: rgb(38, 38, 38, 0.9);
+            color: rgb(217, 217, 217);
+            /* Text color */
+            cursor: pointer;
+            /* Add a mouse pointer on hover */
+            padding: 5px;
+            /* Some padding */
+            border-radius: 5px;
+            /* Rounded corners */
+        }
+
+        #myBtn:hover {
+            font-weight: bold;
+            color: hite;
+            /* Add a dark-grey background on hover */
+        }
+
+        #foot {
+            margin-top: 2%;
+            text-align: center;
+            text-shadow: 1px 1px 1px rgb(38, 38, 38, 0.9);
+            color: rgb(38, 38, 38, 0.9);
+        }
+
+        .kostas-photo {
+            width: 160px;
+            height: 150px;
+            text-align: center;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 50%;
+        }
+
+        .card {
+            /* margin-top: 10%; */
+        }
+
+        #education-card {
+            color: rgb(38, 38, 38, 0.9);
+            background: : rgba(217, 217, 217, 0.5) !important;
+            margin-bottom: 10%;
+            margin-top: 5%;
+            /*position: relative;*/
+        }
+
+        #info-card-left,
+        #info-card-right {
+            margin-top: 5%;
+            margin-bottom: 5%;
+
+        }
+
+        #sticky-sidebar{
+            overflow: auto!important;
+            position: -webkit-sticky!important;
+            position: sticky!important;
+            top: 5%!important;
+        }
+
+
+
+        .navbar-nav>li>a {
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+            font-size: 15px;
+        }
+
+        .navbar {
+            min-height: 32px !important
+        }
+
+        .panel {
+            background-color: rgba(89, 89, 89, 0.7);
+            border: 1px solid rgba(89, 89, 89, 0.8);
+            margin-top: 30px;
+            padding-bottom: 20px;
+            color: rgb(102, 102, 102);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .custom-panel {
+            background: rgb(38, 38, 38);
+            /*fallback*/
+            background: rgb(38, 38, 38, 0.9);
+            color: rgb(217, 217, 217);
+        }
+
+
+        .custom-panel p {
+            border: 1px solid rgb(102, 102, 102);
+            border-radius: 10px;
+            padding-top: 20px;
+            padding: 20px;
+        }
+
+        #row-icons {
+            border: 1px solid rgb(102, 102, 102);
+            border-radius: 10px;
+            /* padding-top: 20px; */
+            padding: 1%;
+        }
+
+        #row-icons a:hover {
+            background-color: rgb(38, 38, 38, 0.6);
+        }
+
+        /* Bob */
+
+        @-webkit-keyframes hvr-bob {
+            0% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+
+            50% {
+                -webkit-transform: translateY(-4px);
+                transform: translateY(-4px);
+            }
+
+            100% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes hvr-bob {
+            0% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+
+            50% {
+                -webkit-transform: translateY(-4px);
+                transform: translateY(-4px);
+            }
+
+            100% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+        }
+
+        @-webkit-keyframes hvr-bob-float {
+            100% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes hvr-bob-float {
+            100% {
+                -webkit-transform: translateY(-8px);
+                transform: translateY(-8px);
+            }
+        }
+
+        .hvr-bob {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        }
+
+        .hvr-bob:hover,
+        .hvr-bob:focus,
+        .hvr-bob:active {
+            -webkit-animation-name: hvr-bob-float, hvr-bob;
+            animation-name: hvr-bob-float, hvr-bob;
+            -webkit-animation-duration: .3s, 1.5s;
+            animation-duration: .3s, 1.5s;
+            -webkit-animation-delay: 0s, .3s;
+            animation-delay: 0s, .3s;
+            -webkit-animation-timing-function: ease-out, ease-in-out;
+            animation-timing-function: ease-out, ease-in-out;
+            -webkit-animation-iteration-count: 1, infinite;
+            animation-iteration-count: 1, infinite;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-direction: normal, alternate;
+            animation-direction: normal, alternate;
+        }
+
+        .border-custom {
+            border: 1px solid rgb(102, 102, 102);
+            border-radius: 10px;
+            /* padding-top: 20px; */
+            padding: 20px;
+        }
+
+        .navbar-custom {
+            background: rgb(38, 38, 38, 0.9);
+            color: rgb(217, 217, 217);
+        }
+
+        /* links color */
+
+        a,
+        #email-pop,
+        .btn-link {
+            /* color: rgb(255, 0, 255); */
+            color: rgb(255, 0, 102);
+        }
+
+        .card-header {
+            background-color: white;
+            color: black;
+        }
+
+        #row-icons a {
+            padding: 2%;
+        }
+
+        a:hover,
+        #email-pop:hover,
+        button:hover {
+            color: rgb(255, 77, 148) !important;
+        }
+
+        .navbar-custom .navbar-nav>.active>a {
+            color: white;
+            background-color: transparent;
+        }
+
+        li.active a:hover {
+            font-weight: bold;
+            color: white;
+            background: none;
+            border-bottom: 1px solid white;
+            #0088cc;
+            display: inline;
+        }
+
+        .navbar-custom .navbar-nav>li>a:focus,
+        .navbar-custom .navbar-nav>.active>a:focus {
+            background: none !important;
+            font-weight: bold;
+        }
+
+        .navbar-custom .navbar-nav>li>a:hover,
+        .navbar-custom .navbar-nav>.active>a:hover,
+        .navbar-custom .navbar-nav>.open>a {
+            font-weight: bold;
+            color: white;
+            background: none;
+            border-bottom: 1px solid white;
+        }
+
+        .navbar-toggle .icon-bar {
+            background-color: rgb(217, 217, 217);
+        }
+
+        #general {
+            /* background-image: url('imgs/aspromauro.jpg'); */
+            min-height: 500px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* padding-top: 30px; */
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        #panel-info ul li {
+            color: white;
+            padding-right: 40px;
+            padding-top: 5px;
+            text-align: center;
+            list-style-type: none;
+        }
+
+        #panel-info {
+            display: none;
+            background: rgb(38, 38, 38, 0.9);
+        }
+
+        #welcome {
+            color: white;
+            font-size: 150px;
+            margin-top: 100px;
+            text-shadow: 1px 1px 2px black
+        }
+
+        #ceid-link {
+            color: rgb(204, 0, 204) !important;
+        }
+
+        .terminal {
+            background-color: black !important;
+            color: rgb(204, 0, 204) !important;
+            font-family: Monaco, Consolas, "Lucida Console", monospace;
+            text-align: left !important;
+            width: 600px;
+            display: inline-block;
+            height: auto;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .terminal {
+                background-color: black !important;
+                color: rgb(204, 0, 204) !important;
+                font-family: Monaco, Consolas, "Lucida Console", monospace;
+                text-align: left !important;
+                width: auto;
+                display: inline-block;
+                height: auto;
+            }
+        }
+
+        .terminal p {
+            display: inline;
+        }
+
+        .cmd {
+            display: inline;
+        }
+
+        .nodisplay {
+            visibility: hidden;
+        }
+
+        input[type="text"],
+        textarea {
+            background-color: black;
+            outline: none;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        .title {
+            display: inline-block;
+            border: 1px solid rgb(102, 102, 102);
+            border-radius: 10px;
+            margin: 10px;
+            color: rgb(217, 217, 217);
+        }
+
+        #contact ul {
+            list-style: none;
+            border: 1px solid rgb(102, 102, 102);
+            border-radius: 10px;
+        }
