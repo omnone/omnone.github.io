@@ -1,0 +1,185 @@
+body {
+  /* font-family: Oswald, sans-serif; */
+  font-family: "Roboto", sans-serif !important;
+  padding-top: 2%;
+  font-size: 20px;
+  /* background: rgb(255, 255, 255); */
+  position: relative;
+  /* background: #83a4d4; */
+  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(to bottom, #b6fbff, #83a4d4); */
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(to bottom, #b6fbff, #83a4d4); */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background-image: url("./imgs/aspromauro.png");
+  background-repeat: no-repeat;
+  background-size: cover; */
+  /* margin: 10% !important; */
+  background-color: black !important;
+}
+
+.wrapper {
+  position: relative;
+  height: 100% !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("./imgs/mountain.png");
+  background-size: cover;
+  background-position-y: 59%;
+  border-radius: 2%;
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  /* background-color: rgba(220, 79, 233, 0.27); */
+  border-radius: 2%;
+}
+
+#main-container {
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* min-width: 400px !important; */
+}
+
+@media (max-width: 1400px) {
+  #main-container {
+    width: 60% !important;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  #main-container {
+    width: 100% !important;
+  }
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  #main-container {
+    width: 100% !important;
+    margin-bottom: 40%!important;
+    margin-top:20%!important;
+  }
+
+  #social-icons {
+    font-size: larger!important;
+  }
+
+  #toastMsg{
+    display: none!important;
+  }
+}
+
+#about div,
+#skills div,
+#educ div,
+#exp li {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#myBtn {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Fixed/sticky position */
+  bottom: 20px;
+  /* Place the button at the bottom of the page */
+  right: 30px;
+  /* Place the button 30px from the right */
+  z-index: 99;
+  /* Make sure it does not overlap */
+  border: none;
+  /* Remove borders */
+  outline: none;
+  /* Remove outline */
+  background: rgb(38, 38, 38, 0.9);
+  color: rgb(217, 217, 217);
+  /* Text color */
+  cursor: pointer;
+  /* Add a mouse pointer on hover */
+  padding: 5px;
+  /* Some padding */
+  border-radius: 5px;
+  /* Rounded corners */
+}
+
+#myBtn:hover {
+  font-weight: bold;
+  color: hite;
+  /* Add a dark-grey background on hover */
+}
+
+#latest-repo {
+  color: #3273dc;
+}
+
+#night-btn {
+  float: right;
+  margin-top: 2%;
+  margin-right: 5%;
+  background: rgb(38, 38, 38, 0.9);
+  color: rgb(217, 217, 217);
+  padding: 1%;
+  border-radius: 5px;
+}
+
+#main-container {
+  /* background-color: white; */
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+#name-title {
+  margin-top: 2%;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 5px;
+}
+
+#sub-title{
+  letter-spacing: 2px;
+  font-size: 20px;
+
+}
+
+.title {
+  margin-bottom: 3% !important;
+  /* border-bottom: 1px solid black; */
+}
+
+#main-content {
+  height: 200vh;
+  min-height: 1000px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+#social-icons a {
+  color: rgb(46, 46, 46);
+  padding: 4%;
+}
+
+#social-icons a:hover {
+  color: rgba(220, 79, 233);
+}
+
+ul {
+  list-style: none;
+}

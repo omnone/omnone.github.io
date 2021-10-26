@@ -1,0 +1,258 @@
+<!--
+      .--.   |V|
+     /    \ _| /
+     q .. p \ /
+      \--/  //
+     __||__//
+    /.    _/
+   // \  /
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Konstantinos Bourantas</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/new_style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Roboto"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div
+        class="
+          container-fluid
+          border border-light
+          shadow-lg
+          p-3
+          fadeInDown
+          animated
+        "
+        id="main-container"
+        style="
+          margin-top: 5%;
+          margin-bottom: 5%;
+          width: 30%;
+          padding: 3%;
+          border-radius: 2%;
+          background-color: whitesmoke;
+        "
+      >
+        <div class="row justify-content-md-center">
+          <div class="col-sm-12 col-md-8">
+            <img
+              class="shadow rounded-circle mx-auto d-block"
+              src="assets/images/profile3.jpg"
+              style="width: 150px; height: 150; margin-top: 3%"
+            />
+            <hr />
+            <div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <span>
+                    <p class="text-center" id="name-title">
+                      Konstantinos Bourantas
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <span>
+                    <p class="text-center" id="sub-title">
+                      - Software Engineer -
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <span>
+                    <p class="text-center">
+                      bourantas[@]ceid[dot]upatras[dot]gr
+                    </p>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-sm-12 col-md-8">
+            <div id="social-icons" class="d-flex justify-content-center">
+              <!-- github -->
+              <a class="" href="https://github.com/omnone" target="_blank"
+                ><i class="fab fa-github-alt fa-lg hvr-bob"></i
+              ></a>
+              <!-- linkedin -->
+              <a
+                class=""
+                href="https://www.linkedin.com/in/konstantinos-bourantas-2a6328172/"
+                target="_blank"
+                ><i class="hvr-bob fab fa-linkedin-in fa-lg"></i
+              ></a>
+              <!-- email -->
+              <a
+                class=""
+                id="email-pop"
+                data-bs-toggle="modal"
+                data-bs-target="#qr-modal"
+                ><i class="hvr-bob fas fa-envelope fa-lg"></i
+              ></a>
+              <!-- stackoverflow -->
+              <a
+                class=""
+                href="https://stackoverflow.com/users/7867026/omn-1"
+                target="_blank"
+                ><i class="fab fa-stack-overflow fa-lg"></i
+              ></a>
+              <!-- hackerrank -->
+              <a
+                class=""
+                href="https://www.hackerrank.com/Omen_1?hr_r=1"
+                target="_blank"
+                ><i class="hvr-bob fab fa-hackerrank fa-lg"></i
+              ></a>
+            </div>
+
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="qr-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Scan me</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </button>
+          </div>
+          <div class="modal-body d-flex justify-content-center">
+            <p class="image is-1by1">
+              <img src="assets/images/qr_mail.png" style="border-radius: 2%" />
+            </p>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Position it: -->
+    <!-- - `.toast-container` for spacing between toasts -->
+    <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
+    <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+    <div class="toast-container position-absolute top-0 start-0 p-3">
+      <div
+        class="toast bg-dark.bg-gradient"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        id="toastMsg"
+      >
+        <div class="toast-header">
+          <strong class="me-auto"
+            ><i class="fas fa-terminal" style="font-size: 10px"></i> Latest
+            Repository:</strong
+          >
+          <small id="latest-repo-created"></small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">
+          <a id="latest-repo" href="" target="_blank"></a>
+          <span id="latest-repo-desc"> </span>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $("#social-icons i").mouseover(function () {
+        $(this).addClass("pulse animated infinite");
+      });
+      $("#social-icons i").mouseout(function () {
+        $(this).removeClass("pulse animated");
+      });
+
+      const request = new Request("https://api.github.com/users/omnone/repos", {
+        method: "GET",
+      });
+
+      fetch(request)
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          var repos = responseJSON.sort(compare);
+
+          var latest = repos[0];
+
+          console.log(latest);
+
+          $("#latest-repo").text(latest["name"] + ":");
+          $("#latest-repo").attr("href", latest["html_url"]);
+          $("#latest-repo-desc").text(latest["description"]);
+          $("#latest-repo-created").text(latest["created_at"].split("T")[0]);
+
+          if (latest || true) {
+            var myToastEl = document.getElementById("toastMsg");
+            var toast = new bootstrap.Toast(myToastEl);
+            toast.show();
+          }
+        });
+
+      function compare(repo_a, repo_b) {
+        if (repo_a.created_at > repo_b.created_at) {
+          return -1;
+        }
+        if (repo_a.created_at < repo_b.created_at) {
+          return 1;
+        }
+        return 0;
+      }
+    </script>
+  </body>
+</html>
