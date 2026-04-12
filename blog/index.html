@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary -->
+  <title>Blog — Konstantinos Bourantas</title>
+  <meta name="description" content="Thoughts on backend engineering, cloud infrastructure, Python, Kubernetes, and software craft by Konstantinos Bourantas." />
+  <meta name="author" content="Konstantinos Bourantas" />
+  <link rel="canonical" href="https://omnone.github.io/blog/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://omnone.github.io/blog/" />
+  <meta property="og:title" content="Blog — Konstantinos Bourantas" />
+  <meta property="og:description" content="Thoughts on backend engineering, cloud infrastructure, Python, Kubernetes, and software craft." />
+  <meta property="og:image" content="https://omnone.github.io/assets/images/profile3.jpg" />
+  <meta property="og:site_name" content="Konstantinos Bourantas" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Blog — Konstantinos Bourantas" />
+  <meta name="twitter:description" content="Thoughts on backend engineering, cloud infrastructure, Python, and Kubernetes." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="/">kb.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/blog/index.html">Blog</a></li>
+        <li><a href="/#contact" class="btn-nav">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Blog</h1>
+    <p>Thoughts on backend engineering, infrastructure, and software craft.</p>
+  </div>
+
+  <!--
+    To add a new post:
+    1. Copy blog/posts/_template.html to blog/posts/your-post-slug.html
+    2. Fill in POST_TITLE, TAG, date, content
+    3. Add a new .blog-card entry below pointing to the new file
+    4. Add a matching card in the blog preview section of index.html
+  -->
+  <div class="blog-listing" id="posts">
+
+    <!-- No posts yet — delete this block and add .blog-card entries when you publish -->
+    <div style="grid-column: 1/-1; padding: 4rem 0; text-align: center;">
+      <p style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--text-muted);">No posts yet — check back soon.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Designed &amp; built by Konstantinos Bourantas</p>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
