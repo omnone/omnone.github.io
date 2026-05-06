@@ -13,13 +13,11 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Add a <url> entry for each blog post you publish:
   <url>
-    <loc>https://omnone.github.io/blog/posts/your-post-slug.html</loc>
-    <lastmod>YYYY-MM-DD</lastmod>
+    <loc>https://omnone.github.io/blog/posts/reactive-task-dispatch.html</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>never</changefreq>
     <priority>0.7</priority>
   </url>
-  -->
 
 </urlset>

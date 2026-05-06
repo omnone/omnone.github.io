@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary -->
+  <title>Reactive Task Dispatch: Why Celery Beat Is Not Enough — Konstantinos Bourantas</title>
+  <meta name="description" content="Celery beat is a clock; model signals are interrupts. For low-latency pipelines, polling-based scheduling adds artificial delay and the wrong failure modes. Event-driven dispatch fixes both." />
+  <meta name="author" content="Konstantinos Bourantas" />
+  <link rel="canonical" href="https://omnone.github.io/blog/posts/reactive-task-dispatch.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://omnone.github.io/blog/posts/reactive-task-dispatch.html" />
+  <meta property="og:title" content="Reactive Task Dispatch: Why Celery Beat Is Not Enough — Konstantinos Bourantas" />
+  <meta property="og:description" content="Celery beat is a clock; model signals are interrupts. For low-latency pipelines, polling-based scheduling adds artificial delay and the wrong failure modes. Event-driven dispatch fixes both." />
+  <meta property="og:image" content="https://omnone.github.io/assets/images/profile3.jpg" />
+  <meta property="og:site_name" content="Konstantinos Bourantas" />
+  <meta property="article:author" content="Konstantinos Bourantas" />
+  <meta property="article:published_time" content="2026-05-06" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Reactive Task Dispatch: Why Celery Beat Is Not Enough" />
+  <meta name="twitter:description" content="Move from time-driven to event-driven dispatch: lower latency, better failure modes, and a clearer split between scheduled and reactive work." />
+
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Reactive Task Dispatch: Why Celery Beat Is Not Enough",
+    "description": "Celery beat is a clock; model signals are interrupts. For low-latency pipelines, polling-based scheduling adds artificial delay and the wrong failure modes. Event-driven dispatch fixes both.",
+    "url": "https://omnone.github.io/blog/posts/reactive-task-dispatch.html",
+    "datePublished": "2026-05-06",
+    "author": {
+      "@type": "Person",
+      "name": "Konstantinos Bourantas",
+      "url": "https://omnone.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Konstantinos Bourantas",
+      "url": "https://omnone.github.io"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="/">kb.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/blog/index.html">Blog</a></li>
+        <li><a href="/#contact" class="btn-nav">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post-layout">
+
+    <header class="post-header">
+      <span class="blog-tag">Backend</span>
+      <h1>Reactive Task Dispatch: Why Celery Beat Is Not Enough</h1>
+      <div class="post-meta">
+        <span>Konstantinos Bourantas</span>
+        <span>May 2026</span>
+        <span>5 min read</span>
+      </div>
+    </header>
+
+    <hr class="post-divider" />
+
+    <div class="prose">
+
+      <h2>The problem with periodic scheduling</h2>
+
+      <p>Celery beat is a scheduler: it fires tasks on a fixed interval. For administrative work — health checks, metrics rollups, log rotation — that is exactly the right tool. The task either runs or it doesn't; missing one cycle is harmless.</p>
+
+      <p>Dispatching work to idle workers is a different story.</p>
+
+      <p>If a worker finishes a job at 10:00:01 and beat is configured to check for new work every 30 seconds, the worker sits idle until 10:00:30. Multiply that across dozens of workers and queues and you introduce up to 30 seconds of artificial latency on every job.</p>
+
+      <p>More critically, beat is fundamentally <strong>time-driven</strong>, not <strong>state-driven</strong>. It reacts to the passage of time, not to changes in your system.</p>
+
+      <p>There is also a resilience concern. In many deployments, beat relies on coordination via systems like Redis. If that coordination layer fails:</p>
+
+      <ul>
+        <li>Periodic tasks stop firing</li>
+        <li>Workers drain their current work and go idle</li>
+        <li>New jobs accumulate but are not dispatched</li>
+      </ul>
+
+      <p>For low-latency, state-driven pipelines, this is the wrong failure mode.</p>
+
+      <h2>The reactive alternative: database signals as event triggers</h2>
+
+      <p>Every meaningful state transition in a pipeline is already represented as a database write:</p>
+
+      <ul>
+        <li>A new job arrives → a queue record is inserted</li>
+        <li>A worker picks up a job → an in-progress record is inserted</li>
+        <li>A worker finishes a job → an in-progress record is deleted</li>
+      </ul>
+
+      <p>Most frameworks (e.g. Django, SQLAlchemy) expose lifecycle hooks around these changes.</p>
+
+      <p>The key idea:</p>
+
+      <blockquote>
+        Instead of polling for work, trigger dispatch <strong>when state changes</strong>.
+      </blockquote>
+
+      <pre><code># pseudocode
+
+on job_completed(job):
+    enqueue(dispatch_next_available, countdown=1s, expires=15s)
+
+on job_created(job):
+    enqueue(dispatch_next_available, countdown=1s, expires=15s)</code></pre>
+
+      <p>Every time a job finishes or a new one arrives, a dispatch attempt is triggered immediately. Idle capacity is filled as soon as it appears — not when a clock ticks.</p>
+
+      <h2>Correctness: triggering at the right moment</h2>
+
+      <p>There is an important subtlety here.</p>
+
+      <p>Many ORM hooks fire <strong>inside the database transaction</strong>, before it is committed. If you enqueue a dispatch task at that point, you risk triggering work for a state change that is later rolled back.</p>
+
+      <p>To avoid this, dispatch triggers should be emitted <strong>only after commit</strong>:</p>
+
+      <ul>
+        <li>Use post-commit hooks (e.g. <code>transaction.on_commit</code> in Django)</li>
+        <li>Or adopt an <strong>outbox pattern</strong> for stricter guarantees</li>
+      </ul>
+
+      <p>Without this, the system can exhibit "phantom dispatches" that are hard to debug.</p>
+
+      <h2>What this actually is: an event-driven scheduler</h2>
+
+      <p>This approach does not eliminate scheduling — it changes <em>how scheduling works</em>.</p>
+
+      <p>Instead of a time-driven scheduler (beat), you now have an <strong>event-driven scheduler</strong>:</p>
+
+      <ul>
+        <li><code>dispatch_next_available</code> scans for work</li>
+        <li>assigns it to workers</li>
+        <li>and enforces concurrency/ordering rules</li>
+      </ul>
+
+      <p>The difference is not <em>whether</em> scheduling exists, but <em>what triggers it</em>:</p>
+
+      <ul>
+        <li>Beat → time-based triggers</li>
+        <li>Signals → state-change triggers</li>
+      </ul>
+
+      <p>For reactive systems, the latter is usually a better fit.</p>
+
+      <h2>Why this improves resilience</h2>
+
+      <p>With this model, dispatch depends on:</p>
+
+      <ul>
+        <li>the database (source of truth)</li>
+        <li>the message broker (e.g. RabbitMQ)</li>
+      </ul>
+
+      <p>It does <strong>not</strong> depend on a central scheduler loop.</p>
+
+      <p>As long as state changes are written to the database and messages can be enqueued, the system continues to make progress — even if auxiliary systems like Redis-backed schedulers are unavailable.</p>
+
+      <p>This shifts failure modes from "global pause" to "localized degradation," which is generally easier to tolerate.</p>
+
+      <h2>Idempotency and deduplication</h2>
+
+      <p>Event-driven systems introduce fan-out:</p>
+
+      <blockquote>
+        Ten jobs complete → ten dispatch triggers fire.
+      </blockquote>
+
+      <p>This is manageable with standard techniques:</p>
+
+      <ul>
+        <li><strong>Task expiration (<code>expires</code>)</strong> — stale dispatch attempts are dropped by the broker.</li>
+        <li><strong>Distributed locking</strong> — only one instance of the dispatch logic runs at a time.</li>
+        <li><strong>Idempotent dispatch logic</strong> — running dispatch multiple times produces the same result.</li>
+      </ul>
+
+      <p>Optionally, you can add <strong>debouncing / coalescing</strong> (collapse bursts into a single trigger) and <strong>single-flight guarantees</strong> (only one in-flight dispatch attempt cluster-wide). These patterns prevent the "thundering herd" problem without sacrificing responsiveness.</p>
+
+      <h2>Tradeoffs</h2>
+
+      <p>This approach is not free. It introduces different constraints:</p>
+
+      <ul>
+        <li>Stronger coupling to the database layer</li>
+        <li>More write-triggered activity</li>
+        <li>Transactional complexity</li>
+        <li>Operational discipline required (idempotency, locking, observability)</li>
+      </ul>
+
+      <p>In exchange, you get significantly lower latency and better alignment with how the system actually behaves.</p>
+
+      <h2>Combining both approaches</h2>
+
+      <p>The correct architecture uses both mechanisms, with clear separation of roles:</p>
+
+      <ul>
+        <li><strong>Model lifecycle hooks / post-commit events</strong> — immediate, state-driven actions: dispatch, scaling signals, cooldown triggers.</li>
+        <li><strong>Celery beat</strong> — periodic, low-priority work: cleanup, metrics, health checks.</li>
+      </ul>
+
+      <p>The key rule:</p>
+
+      <blockquote>
+        <strong>Do not use a clock to react to events.</strong> If something needs to happen because the system changed, trigger it from the place where that change occurs.
+      </blockquote>
+
+      <h2>Summary</h2>
+
+      <blockquote>
+        Celery beat is a clock. Model signals are interrupts.<br />
+        Use the clock for things that should happen regularly.<br />
+        Use interrupts for things that should happen <em>now</em>.
+      </blockquote>
+
+      <p>For pipelines where latency and throughput matter, moving from polling to event-driven dispatch is one of the highest-leverage architectural shifts you can make.</p>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="../index.html" class="back-link">← Back to Blog</a>
+      <a href="/#contact" class="btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Get in touch</a>
+    </div>
+
+  </article>
+
+  <footer>
+    <p>Designed &amp; built by Konstantinos Bourantas</p>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
